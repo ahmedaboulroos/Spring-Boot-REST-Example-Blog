@@ -15,23 +15,33 @@ public class CommentService {
     private CommentRepository commentRepository;
 
 	public List<Comment> getBlogPostComments(int blogPostId) {
-		return null;
+		return commentRepository.findByBlogPostId(blogPostId);
+	}
+
+	public List<Comment> getAllUserComments(int userId) {
+		return commentRepository.findByAuthorId(userId);
 	}
 
 	public Comment getBlogPostComment(int blogPostId, int commentId) {
-		return null;
+		// TODO check comment IDs
+		return commentRepository.findById(commentId).orElseThrow();
 	}
 
 	public Comment updateBlogPostComment(int blogPostId, int commentId, Comment comment) {
-		return null;
+		// TODO check comment IDs
+		return commentRepository.save(comment);
 	}
 
 	public Comment createBlogPostComment(int blogPostId, Comment comment) {
-		return null;
+		// TODO check comment IDs
+		return commentRepository.save(comment);
 	}
 
 	public Comment deleteBlogPostComment(int blogPostId, int commentId) {
-		return null;
+		// TODO check comment IDs
+		Comment comment = commentRepository.findById(commentId).orElseThrow();
+		commentRepository.deleteById(commentId);
+		return comment;
 	}
 
 }

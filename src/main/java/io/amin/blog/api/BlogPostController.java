@@ -3,7 +3,6 @@ package io.amin.blog.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import io.amin.blog.models.BlogPost;
 import io.amin.blog.models.Comment;
@@ -20,7 +20,7 @@ import io.amin.blog.services.CommentService;
 import io.amin.blog.services.ImageService;
 import io.amin.blog.services.TagService;
 
-@Controller
+@RestController
 @RequestMapping("/api")
 public class BlogPostController {
     
@@ -33,9 +33,7 @@ public class BlogPostController {
     @Autowired
     private TagService tagService;
 
-
-
-    @GetMapping("/blogs/")
+    @GetMapping("/blogs")
     public List<BlogPost> getAllBlogPosts(@RequestParam String tag) {
         return null;
     }
@@ -45,7 +43,7 @@ public class BlogPostController {
         return blogPostService.getBlogPostById(blogPostId);
     }
     
-    @PostMapping("/blogs/")
+    @PostMapping("/blogs")
     public BlogPost createBlogPost(@RequestBody BlogPost blogPost) {
         return blogPostService.addNewBlogPost(blogPost);
     }
@@ -62,7 +60,7 @@ public class BlogPostController {
 
 
 
-    @GetMapping("/blogs/{blogPostId}/comments/")
+    @GetMapping("/blogs/{blogPostId}/comments")
     public List<Comment> getBlogPostComments(@PathVariable int blogPostId) {
         return commentService.getBlogPostComments(blogPostId);
     }
@@ -72,7 +70,7 @@ public class BlogPostController {
         return commentService.getBlogPostComment(blogPostId, commentId);
     }
     
-    @PostMapping("/blogs/{blogPostId}/comments/")
+    @PostMapping("/blogs/{blogPostId}/comments")
     public Comment createBlogPostComment(@PathVariable int blogPostId, @RequestBody Comment comment) {
         return commentService.createBlogPostComment(blogPostId, comment);
     }

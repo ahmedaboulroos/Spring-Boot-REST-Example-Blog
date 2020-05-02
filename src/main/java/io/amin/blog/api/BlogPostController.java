@@ -30,8 +30,6 @@ public class BlogPostController {
     private CommentService commentService;
     @Autowired
     private ImageService imageService;
-    @Autowired
-    private TagService tagService;
 
     @GetMapping("/blogs")
     public List<BlogPost> getAllBlogPosts(@RequestParam String tag) {
@@ -58,8 +56,7 @@ public class BlogPostController {
         return blogPostService.deleteBlogPostById(blogPostId);
     }
 
-
-
+    
     @GetMapping("/blogs/{blogPostId}/comments")
     public List<Comment> getBlogPostComments(@PathVariable int blogPostId) {
         return commentService.getBlogPostComments(blogPostId);

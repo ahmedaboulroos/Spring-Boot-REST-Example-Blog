@@ -14,7 +14,7 @@ import io.amin.blog.models.User;
 import io.amin.blog.services.UserService;
 
 @Controller
-@RequestMapping("/profiles")
+@RequestMapping("/api/profiles")
 public class ProfileController {
     
     @Autowired

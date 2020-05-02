@@ -1,5 +1,7 @@
 package io.amin.blog.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -8,15 +10,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import io.amin.blog.models.BlogPost;
+import io.amin.blog.models.Comment;
 import io.amin.blog.services.BlogPostService;
 import io.amin.blog.services.CommentService;
 import io.amin.blog.services.ImageService;
 import io.amin.blog.services.TagService;
 
 @Controller
+@RequestMapping("/api")
 public class BlogPostController {
     
     @Autowired
@@ -28,57 +33,58 @@ public class BlogPostController {
     @Autowired
     private TagService tagService;
 
-    
+
+
     @GetMapping("/blogs/")
-    public BlogPost getAllBlogPosts(@RequestParam String tag) {
+    public List<BlogPost> getAllBlogPosts(@RequestParam String tag) {
         return null;
     }
 
-    @GetMapping("/blogs/{id}")
-    public BlogPost getBlogPost(@PathVariable int id) {
-        return null;
+    @GetMapping("/blogs/{blogPostId}")
+    public BlogPost getBlogPost(@PathVariable int blogPostId) {
+        return blogPostService.getBlogPostById(blogPostId);
     }
     
     @PostMapping("/blogs/")
     public BlogPost createBlogPost(@RequestBody BlogPost blogPost) {
-        return null;
+        return blogPostService.addNewBlogPost(blogPost);
     }
 
-    @PutMapping("/blogs/{id}")
-    public BlogPost updateBlogPost(@PathVariable int id, @RequestBody BlogPost blogPost) {
-        return null;
+    @PutMapping("/blogs/{blogPostId}")
+    public BlogPost updateBlogPost(@PathVariable int blogPostId, @RequestBody BlogPost blogPost) {
+        return blogPostService.updateBlogPostDetails(blogPostId, blogPost);
     }
     
-    @DeleteMapping("/blogs/{id}")
-    public BlogPost deleteBlogPost(@PathVariable int id) {
-        return null;
+    @DeleteMapping("/blogs/{blogPostId}")
+    public BlogPost deleteBlogPost(@PathVariable int blogPostId) {
+        return blogPostService.deleteBlogPostById(blogPostId);
+    }
+
+
+
+    @GetMapping("/blogs/{blogPostId}/comments/")
+    public List<Comment> getBlogPostComments(@PathVariable int blogPostId) {
+        return commentService.getBlogPostComments(blogPostId);
+    }
+
+    @GetMapping("/blogs/{blogPostId}/comments/{commentId}")
+    public Comment getBlogPostComment(@PathVariable int blogPostId, @PathVariable int commentId) {
+        return commentService.getBlogPostComment(blogPostId, commentId);
     }
     
-
-
-    @GetMapping("/blogs/{bid}/comments/")
-    public BlogPost getBlogPostComments(@PathVariable int bid) {
-        return null;
+    @PostMapping("/blogs/{blogPostId}/comments/")
+    public Comment createBlogPostComment(@PathVariable int blogPostId, @RequestBody Comment comment) {
+        return commentService.createBlogPostComment(blogPostId, comment);
     }
 
-    @GetMapping("/blogs/{bid}/comments/{cid}")
-    public BlogPost getBlogPostComment(@PathVariable int id) {
-        return null;
+    @PutMapping("/blogs/{blogPostId}/comments/{commentId}")
+    public Comment updateBlogPostComment(@PathVariable int blogPostId, @PathVariable int commentId, @RequestBody Comment comment) {
+        return commentService.updateBlogPostComment(blogPostId, commentId, comment);
     }
     
-    @PostMapping("/blogs/{bid}/comments/")
-    public BlogPost createBlogPostComment(@RequestBody BlogPost blogPost) {
-        return null;
-    }
-
-    @PutMapping("/blogs/{bid}/comments/{cid}")
-    public BlogPost updateBlogPostComment(@PathVariable int id, @RequestBody BlogPost blogPost) {
-        return null;
-    }
-    
-    @DeleteMapping("/blogs/{bid}/comments/{cid}")
-    public BlogPost deleteBlogPostComment(@PathVariable int id) {
-        return null;
+    @DeleteMapping("/blogs/{blogPostId}/comments/{commentId}")
+    public Comment deleteBlogPostComment(@PathVariable int blogPostId, @PathVariable int commentId) {
+        return commentService.deleteBlogPostComment(blogPostId, commentId);
     }
 
 }

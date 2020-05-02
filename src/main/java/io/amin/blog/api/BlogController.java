@@ -14,7 +14,7 @@ import io.amin.blog.models.Blog;
 import io.amin.blog.services.BlogService;
 
 @Controller
-@RequestMapping("/admin/blog")
+@RequestMapping("/api/admin/blog")
 public class BlogController {
     
     @Autowired
@@ -23,12 +23,12 @@ public class BlogController {
     
     @GetMapping("/")
     public Blog getBlog() {
-        return null;
+        return blogService.getBlogDetails();
     }
 
     @PutMapping("/")
     public Blog updateBlog(@RequestBody Blog blog) {
-        return null;
+        return blogService.updateBlogDetails(blog);
     }
         
 }

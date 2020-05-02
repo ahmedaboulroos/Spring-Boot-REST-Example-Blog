@@ -1,5 +1,7 @@
 package io.amin.blog.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,28 +24,28 @@ public class ProfileController {
 
     
     @GetMapping
-    public String getAllProfiles() {
-        return "user";
+    public List<User> getAllProfiles() {
+        return userService.getAllUsers();
     }
 
-    @GetMapping("/{id}")
-    public User getProfile(@PathVariable int id) {
-        return null;
+    @GetMapping("/{userId}")
+    public User getProfile(@PathVariable int userId) {
+        return userService.getUserById(userId);
     }
     
     @PostMapping
     public User createProfile(@RequestBody User user) {
-        return null;
+        return userService.createNewUser(user);
     }
 
-    @PutMapping("/{id}")
-    public User updateProfile(@PathVariable int id, @RequestBody User user) {
-        return null;
+    @PutMapping("/{userId}")
+    public User updateProfile(@PathVariable int userId, @RequestBody User user) {
+        return userService.updateUserDetails(userId, user);
     }
     
-    @DeleteMapping("/{id}")
-    public User deleteProfile(@PathVariable int id) {
-        return null;
+    @DeleteMapping("/{userId}")
+    public User deleteProfile(@PathVariable int userId) {
+        return userService.deleteUserById(userId);
     }
     
 }

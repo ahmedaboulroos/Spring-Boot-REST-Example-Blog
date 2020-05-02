@@ -17,23 +17,22 @@ import io.amin.blog.models.BlogPost;
 import io.amin.blog.models.Comment;
 import io.amin.blog.services.BlogPostService;
 import io.amin.blog.services.CommentService;
-import io.amin.blog.services.ImageService;
-import io.amin.blog.services.TagService;
 
 @RestController
 @RequestMapping("/api")
 public class BlogPostController {
-    
+
     @Autowired
     private BlogPostService blogPostService;
     @Autowired
     private CommentService commentService;
-    @Autowired
-    private ImageService imageService;
 
     @GetMapping("/blogs")
     public List<BlogPost> getAllBlogPosts(@RequestParam String tag) {
-        return null;
+        // get all blog posts
+        // get all blog posts between two timestamps
+        // get latest n number of blog posts
+        return blogPostService.getAllBlogPosts();
     }
 
     @GetMapping("/blogs/{blogPostId}")

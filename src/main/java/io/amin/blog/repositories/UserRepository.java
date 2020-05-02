@@ -10,7 +10,7 @@ import io.amin.blog.models.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
     
-    List<User> findByNameFirstNameOrNameLastNameIgnoreCaseLike(String name);
+    List<User> findByNameFirstNameOrNameLastNameIgnoreCaseLike(String firstName, String lastName);
 
     User findByUsernameAndPassword(String username, String password);
 

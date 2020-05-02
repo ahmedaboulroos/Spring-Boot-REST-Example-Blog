@@ -1,5 +1,8 @@
 package io.amin.blog.services;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,22 +16,30 @@ public class BlogPostService {
     private BlogPostRepository blogPostRepository;
 
 
-    
 	public BlogPost getBlogPostById(int blogPostId) {
-		return null;
+		return blogPostRepository.findById(blogPostId).orElseThrow();
 	}
 
 	public BlogPost addNewBlogPost(BlogPost blogPost) {
-		return null;
+		return blogPostRepository.save(blogPost);
 	}
 
 	public BlogPost updateBlogPostDetails(int blogPostId, BlogPost blogPost) {
-		return null;
+		return blogPostRepository.save(blogPost);
 	}
 
 	public BlogPost deleteBlogPostById(int blogPostId) {
-		return null;
+		BlogPost blogPost = blogPostRepository.findById(blogPostId).orElseThrow();
+		blogPostRepository.deleteById(blogPostId);
+		return blogPost;
 	}
 
-    
+	public List<BlogPost> getAllBlogPosts() {
+		return blogPostRepository.findAll();
+	}
+
+	public List<BlogPost> getAllBlogPostsBetweenTimestamps(LocalDateTime timestampOne, LocalDateTime timestampTwo) {
+		return blogPostRepository.findByTimestampBetween(timestampOne, timestampTwo);
+	}
+   
 }

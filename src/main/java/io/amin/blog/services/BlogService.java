@@ -38,7 +38,6 @@ public class BlogService {
         Blog blog = new Blog();
         blog.setName("Blog Default Name");
         blog.setDescription("Blog Default Description");
-        blog.setAdmin(userService.getAdminUser());
         return blog;
     }
 

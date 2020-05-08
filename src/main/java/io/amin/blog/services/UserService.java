@@ -14,10 +14,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-	public User getAdminUser() {
-		return userRepository.findByIsAdminTrue();
-	}
-
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
 	}

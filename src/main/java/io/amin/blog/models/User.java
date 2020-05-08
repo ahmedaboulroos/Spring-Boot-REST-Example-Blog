@@ -28,9 +28,6 @@ public class User {
     @GeneratedValue
     @Column(name = "USER_ID")
     private int id;
-    
-    @Column(name = "USER_IS_ADMIN")
-    private boolean isAdmin;
 
     @OneToOne
     private Image profileImage;
@@ -41,13 +38,13 @@ public class User {
     @Embedded
     private Address address;
 
-    @Column(name = "USER_USERNAME")
+    @Column(name = "USER_USERNAME", unique = true)
     private String username;
 
     @Column(name = "USER_PASSWORD")
     private String password;
 
-    @Column(name = "USER_EMAIL")
+    @Column(name = "USER_EMAIL", unique = true)
     private String email;
 
     @Column(name = "USER_PROFESSION")
@@ -55,6 +52,21 @@ public class User {
 
     @Column(name = "USER_BIO")
     private String bio;
+
+    @Column(name = "ACCOUNT_ENABLED")
+    private boolean accountEnabled;
+
+    @Column(name = "ACCOUNT_LOCKED")
+    private boolean accountLocked;
+
+    @Column(name = "ACCOUNT_EXPIRED")
+    private boolean accountExpired;
+
+    @Column(name = "CREDENTIALS_EXPIRED")
+    private boolean credentialsExpired;
+
+    @ManyToMany
+    private List<Role> roles;
 
     @OneToMany
     private List<BlogPost> blogPosts;

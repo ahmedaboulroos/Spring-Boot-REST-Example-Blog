@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "ROLES")
 public class Role {
     
-    @Id
+	@Id
     @GeneratedValue
     @Column(name = "ROLE_ID")
     private int id;
@@ -27,9 +27,18 @@ public class Role {
     private String name;
 
     @Column(name = "ROLE_DESCRIPTION")
-    private String Description;
+    private String description;
 
     @ManyToMany
     private List<User> users;
     
+    public Role(String name) {
+        this.name = name;
+	}
+
+    public Role(String name, String description) {
+        this.name = name;
+        this.description = description;
+	}
+
 }

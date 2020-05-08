@@ -1,10 +1,12 @@
 package io.amin.blog.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -24,7 +26,16 @@ import lombok.NoArgsConstructor;
 @Table(name = "USERS")
 public class User {
     
-    @Id
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.accountEnabled = true;
+        this.accountLocked = false;
+        this.accountExpired = false;
+        this.credentialsExpired = false;
+	}
+
+	@Id
     @GeneratedValue
     @Column(name = "USER_ID")
     private int id;
@@ -65,19 +76,19 @@ public class User {
     @Column(name = "CREDENTIALS_EXPIRED")
     private boolean credentialsExpired;
 
-    @ManyToMany
-    private List<Role> roles;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Role> roles = new ArrayList<>();
 
     @OneToMany
-    private List<BlogPost> blogPosts;
+    private List<BlogPost> blogPosts = new ArrayList<>();
     
     @OneToMany
-    private List<User> followings;
+    private List<User> followings = new ArrayList<>();
 
     @OneToMany
-    private List<User> followers;
+    private List<User> followers = new ArrayList<>();
 
     @ManyToMany
-    private List<Tag> interests;
+    private List<Tag> interests = new ArrayList<>();
     
 }

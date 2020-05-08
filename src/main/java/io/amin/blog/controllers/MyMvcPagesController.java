@@ -1,40 +1,18 @@
 package io.amin.blog.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MyMvcPagesController {
 
-    @GetMapping("/")
-    public String getHomePage() {
+    @GetMapping("/greeting")
+    public String greeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
+            Model model) {
+        model.addAttribute("name", name);
         return "HomePage";
-    }
-
-    @GetMapping("/products")
-    public String getProductsPage() {
-        return "ProductsPage";
-    }
-
-    @GetMapping("/error")
-    public String getErrorPage() {
-        return "ErrorPage";
-    }
-
-    @GetMapping("/signup")
-    public String getSignupPage() {
-        return "SignupPage";
-    }
-
-
-    @GetMapping("/user/profile")
-    public String getProfilePage() {
-        return "ProfilePage";
-    }
-
-    @GetMapping("/admin/dashboard")
-    public String getDashboardPage() {
-        return "DashboardPage";
     }
 
 }

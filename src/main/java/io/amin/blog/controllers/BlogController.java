@@ -1,4 +1,4 @@
-package io.amin.blog.api;
+package io.amin.blog.controllers;
 
 import java.util.List;
 

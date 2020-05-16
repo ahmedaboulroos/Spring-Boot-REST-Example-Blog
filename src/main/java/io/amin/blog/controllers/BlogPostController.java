@@ -1,8 +1,7 @@
-package io.amin.blog.api;
+package io.amin.blog.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,10 +21,13 @@ import io.amin.blog.services.CommentService;
 @RequestMapping("/api")
 public class BlogPostController {
 
-    @Autowired
-    private BlogPostService blogPostService;
-    @Autowired
-    private CommentService commentService;
+    private final BlogPostService blogPostService;
+    private final CommentService commentService;
+
+    public BlogPostController(BlogPostService blogPostService, CommentService commentService) {
+        this.blogPostService = blogPostService;
+        this.commentService = commentService;
+    }
 
     @GetMapping("/blogs")
     public List<BlogPost> getAllBlogPosts(@RequestParam String tag) {

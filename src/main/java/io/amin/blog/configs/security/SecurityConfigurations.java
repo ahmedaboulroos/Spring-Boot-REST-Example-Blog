@@ -1,6 +1,5 @@
 package io.amin.blog.configs.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -15,8 +14,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    UserPrincipalDetailsService userPrincipalDetailsService;
+    final UserPrincipalDetailsService userPrincipalDetailsService;
+
+    public SecurityConfigurations(UserPrincipalDetailsService userPrincipalDetailsService) {
+        this.userPrincipalDetailsService = userPrincipalDetailsService;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

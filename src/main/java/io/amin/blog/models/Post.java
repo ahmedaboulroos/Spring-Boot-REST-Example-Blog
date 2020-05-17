@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -26,12 +27,12 @@ public class Post {
     private LocalDateTime timestamp;
 
     @ManyToMany
-    private List<Tag> tags;
+    private List<Tag> tags = new ArrayList<>();
 
     @ManyToOne
     private User author;
 
     @OneToMany(mappedBy = "post")
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<>();
 
 }

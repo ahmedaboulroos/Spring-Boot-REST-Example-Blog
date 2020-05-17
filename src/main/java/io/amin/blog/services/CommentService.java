@@ -1,28 +1,29 @@
 package io.amin.blog.services;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import io.amin.blog.models.Comment;
 import io.amin.blog.repositories.CommentRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CommentService {
-    
-    @Autowired
-    private CommentRepository commentRepository;
 
-	public List<Comment> getBlogPostComments(int blogPostId) {
-		return commentRepository.findByBlogPostId(blogPostId);
-	}
+    private final CommentRepository commentRepository;
 
-	public List<Comment> getAllUserComments(int userId) {
-		return commentRepository.findByAuthorId(userId);
-	}
+    public CommentService(CommentRepository commentRepository) {
+        this.commentRepository = commentRepository;
+    }
 
-	public Comment getBlogPostComment(int blogPostId, int commentId) {
+    public List<Comment> getBlogPostComments(int blogPostId) {
+        return null;
+    }
+
+    public List<Comment> getAllUserComments(int userId) {
+        return commentRepository.findByAuthorId(userId);
+    }
+
+    public Comment getBlogPostComment(int blogPostId, int commentId) {
 		// TODO check comment IDs
 		return commentRepository.findById(commentId).orElseThrow();
 	}

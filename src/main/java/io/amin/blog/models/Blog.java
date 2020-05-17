@@ -20,7 +20,4 @@ public class Blog {
     @Column(name = "BLOG_DESCRIPTION")
     private String description;
 
-    @OneToOne
-    private User admin;
-
 }

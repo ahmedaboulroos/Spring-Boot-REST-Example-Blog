@@ -1,30 +1,24 @@
 package io.amin.blog.controllers;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import io.amin.blog.models.Blog;
 import io.amin.blog.models.Tag;
 import io.amin.blog.services.BlogService;
 import io.amin.blog.services.TagService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin/blog/")
 public class BlogController {
-    
-    @Autowired
-    private BlogService blogService;
-    @Autowired
-    private TagService tagService;
+
+    private final BlogService blogService;
+    private final TagService tagService;
+
+    public BlogController(BlogService blogService, TagService tagService) {
+        this.blogService = blogService;
+        this.tagService = tagService;
+    }
 
     @GetMapping("details")
     public Blog getBlog() {

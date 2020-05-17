@@ -1,25 +1,26 @@
 package io.amin.blog.services;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import io.amin.blog.models.Blog;
 import io.amin.blog.repositories.BlogRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class BlogService {
-    
-    @Autowired
-    private BlogRepository blogRepository;
-    @Autowired
-    private UserService userService;
 
-	public Blog getBlogDetails() {
+    private final BlogRepository blogRepository;
+    private final UserService userService;
+
+    public BlogService(BlogRepository blogRepository, UserService userService) {
+        this.blogRepository = blogRepository;
+        this.userService = userService;
+    }
+
+    public Blog getBlogDetails() {
         Blog blog = null;
         List<Blog> blogs = blogRepository.findAll();
-        
+
         if (blogs.size() != 1) {
             blogRepository.deleteAll();
             blog = createBlogForFirstTime();

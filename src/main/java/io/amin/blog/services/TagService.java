@@ -1,18 +1,19 @@
 package io.amin.blog.services;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import io.amin.blog.models.Tag;
 import io.amin.blog.repositories.TagRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TagService {
-    
-    @Autowired
-    private TagRepository tagRepository;
+
+	private final TagRepository tagRepository;
+
+	public TagService(TagRepository tagRepository) {
+		this.tagRepository = tagRepository;
+	}
 
 	public List<Tag> getAllTags() {
 		return tagRepository.findAll();

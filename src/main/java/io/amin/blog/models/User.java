@@ -1,53 +1,47 @@
 package io.amin.blog.models;
 
+import lombok.Data;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import io.amin.blog.models.utils.Address;
-import io.amin.blog.models.utils.Image;
-import io.amin.blog.models.utils.Name;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 @Data
-@NoArgsConstructor
 @Entity
 @Table(name = "USERS")
 public class User {
-    
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-        this.accountEnabled = true;
-        this.accountLocked = false;
-        this.accountExpired = false;
-        this.credentialsExpired = false;
-	}
 
-	@Id
+    @Id
     @GeneratedValue
     @Column(name = "USER_ID")
     private int id;
 
-    @OneToOne
-    private Image profileImage;
+    @Column(name = "FIRST_NAME")
+    private String firstName;
 
-    @Embedded
-    private Name name;
+    @Column(name = "MIDDLE_NAME")
+    private String middleName;
 
-    @Embedded
-    private Address address;
+    @Column(name = "LAST_NAME")
+    private String lastName;
+
+    @Column(name = "NICK_NAME")
+    private String nickname;
+
+    @Column(name = "TITLE")
+    private String title;
+
+    @Column(name = "ADDRESS_STREET")
+    private String Street;
+
+    @Column(name = "ADDRESS_CITY")
+    private String city;
+
+    @Column(name = "ADDRESS_ZIP_CODE")
+    private String zipCode;
+
+    @Column(name = "ADDRESS_COUNTRY")
+    private String country;
 
     @Column(name = "USER_USERNAME", unique = true)
     private String username;
@@ -79,9 +73,9 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles = new ArrayList<>();
 
-    @OneToMany
-    private List<BlogPost> blogPosts = new ArrayList<>();
-    
+    @OneToMany(mappedBy = "author")
+    private List<Post> posts = new ArrayList<>();
+
     @OneToMany
     private List<User> followings = new ArrayList<>();
 
@@ -90,5 +84,18 @@ public class User {
 
     @ManyToMany
     private List<Tag> interests = new ArrayList<>();
-    
+
+    public User() {
+
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.accountEnabled = true;
+        this.accountLocked = false;
+        this.accountExpired = false;
+        this.credentialsExpired = false;
+    }
+
 }

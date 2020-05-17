@@ -1,19 +1,11 @@
 package io.amin.blog.models;
 
+import lombok.Data;
+
+import javax.persistence.*;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 @Data
-@NoArgsConstructor
 @Entity
 @Table(name = "ROLES")
 public class Role {
@@ -31,14 +23,18 @@ public class Role {
 
     @ManyToMany
     private List<User> users;
-    
+
+    public Role() {
+
+    }
+
     public Role(String name) {
         this.name = name;
-	}
+    }
 
     public Role(String name, String description) {
         this.name = name;
         this.description = description;
-	}
+    }
 
 }

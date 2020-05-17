@@ -1,17 +1,10 @@
 package io.amin.blog.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Data
-@NoArgsConstructor
 @Entity
 @Table(name = "BLOG")
 public class Blog {

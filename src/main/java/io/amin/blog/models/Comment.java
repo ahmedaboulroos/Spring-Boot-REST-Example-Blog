@@ -1,19 +1,11 @@
 package io.amin.blog.models;
 
+import lombok.Data;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 @Data
-@NoArgsConstructor
 @Entity
 @Table(name = "COMMENTS")
 public class Comment {
@@ -27,7 +19,7 @@ public class Comment {
     private User author;
 
     @ManyToOne
-    private BlogPost blogPost;
+    private Post post;
 
     @Column(name = "COMMENT_CONTENT")
     private String content;

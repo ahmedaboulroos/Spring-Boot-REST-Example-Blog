@@ -21,7 +21,7 @@ public class SwaggerConfigurations {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .paths(PathSelectors.ant("/api/**"))
-                .apis(RequestHandlerSelectors.basePackage("io.amin.blog.api"))
+                .apis(RequestHandlerSelectors.basePackage("io.amin.blog.controllers"))
                 .build()
                 .apiInfo(apiDetails());
     }

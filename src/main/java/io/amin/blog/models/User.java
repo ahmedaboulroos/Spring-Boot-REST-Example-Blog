@@ -99,6 +99,9 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "TAG_ID")})
     private List<Tag> interests = new ArrayList<>();
 
+    @OneToMany(mappedBy = "author")
+    private List<Comment> comments = new ArrayList<>();
+
     public User() {
         this.accountEnabled = true;
         this.accountLocked = false;

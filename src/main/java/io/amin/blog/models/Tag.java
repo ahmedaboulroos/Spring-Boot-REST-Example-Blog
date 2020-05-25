@@ -30,4 +30,13 @@ public class Tag {
     @ManyToMany(mappedBy = "interests")
     private List<User> interestedUsers = new ArrayList<>();
 
+    public Tag() {
+
+    }
+
+    public Tag(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
 }

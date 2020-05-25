@@ -1,11 +1,13 @@
 package io.amin.blog.models;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "COMMENTS")
 public class Comment {
@@ -15,16 +17,18 @@ public class Comment {
     @Column(name = "COMMENT_ID")
     private int id;
 
-    @ManyToOne
-    private User author;
-
-    @ManyToOne
-    private Post post;
-
     @Column(name = "COMMENT_CONTENT")
     private String content;
 
     @Column(name = "COMMENT_TIMESTAMP")
     private LocalDateTime timestamp;
+
+    @ManyToOne
+    @JoinColumn(name = "AUTHOR_ID")
+    private User author;
+
+    @ManyToOne
+    @JoinColumn(name = "POST_ID")
+    private Post post;
 
 }

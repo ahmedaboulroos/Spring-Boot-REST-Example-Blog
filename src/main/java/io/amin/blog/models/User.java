@@ -1,12 +1,14 @@
 package io.amin.blog.models;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "USERS")
 public class User {
@@ -71,22 +73,37 @@ public class User {
     private boolean credentialsExpired;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "USER_ROLES",
+            joinColumns = {@JoinColumn(name = "USER_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID")})
     private List<Role> roles = new ArrayList<>();
 
     @OneToMany(mappedBy = "author")
     private List<Post> posts = new ArrayList<>();
 
     @OneToMany
+    @JoinTable(name = "USER_FOLLOWINGS",
+            joinColumns = {@JoinColumn(name = "USER_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "FOLLOWING_USER_ID")})
     private List<User> followings = new ArrayList<>();
 
     @OneToMany
+    @JoinTable(name = "USER_FOLLOWERS",
+            joinColumns = {@JoinColumn(name = "USER_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "FOLLOWER_USER_ID")})
     private List<User> followers = new ArrayList<>();
 
     @ManyToMany
+    @JoinTable(name = "USER_INTERESTS",
+            joinColumns = {@JoinColumn(name = "USER_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "TAG_ID")})
     private List<Tag> interests = new ArrayList<>();
 
     public User() {
-
+        this.accountEnabled = true;
+        this.accountLocked = false;
+        this.accountExpired = false;
+        this.credentialsExpired = false;
     }
 
     public User(String username, String password) {

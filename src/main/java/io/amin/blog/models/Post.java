@@ -1,13 +1,15 @@
 package io.amin.blog.models;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "POSTS")
 public class Post {
@@ -27,9 +29,13 @@ public class Post {
     private LocalDateTime timestamp;
 
     @ManyToMany
+    @JoinTable(name = "POST_TAGS",
+            joinColumns = {@JoinColumn(name = "POST_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "TAG_ID")})
     private List<Tag> tags = new ArrayList<>();
 
     @ManyToOne
+    @JoinColumn(name = "AUTHOR_ID")
     private User author;
 
     @OneToMany(mappedBy = "post")

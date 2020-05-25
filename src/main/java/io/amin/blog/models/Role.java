@@ -1,11 +1,14 @@
 package io.amin.blog.models;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "ROLES")
 public class Role {
@@ -21,8 +24,8 @@ public class Role {
     @Column(name = "ROLE_DESCRIPTION")
     private String description;
 
-    @ManyToMany
-    private List<User> users;
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users = new ArrayList<>();
 
     public Role() {
 

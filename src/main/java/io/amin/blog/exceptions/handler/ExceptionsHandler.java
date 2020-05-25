@@ -1,8 +1,8 @@
 package io.amin.blog.exceptions.handler;
 
+import io.amin.blog.exceptions.ResourceNotFoundException;
 import io.amin.blog.exceptions.dto.ErrorDetail;
 import io.amin.blog.exceptions.dto.ValidationError;
-import io.amin.blog.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ControllerAdvice
-public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+public class ExceptionsHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorDetail> handleResourceNotFoundException(ResourceNotFoundException rnfe) {

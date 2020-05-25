@@ -1,43 +1,19 @@
 package io.amin.blog.services;
 
-import io.amin.blog.models.Tag;
-import io.amin.blog.repositories.TagRepository;
-import org.springframework.stereotype.Service;
+import io.amin.blog.services.dto.TagDto;
 
 import java.util.List;
 
-@Service
-public class TagService {
+public interface TagService {
 
-	private final TagRepository tagRepository;
+    List<TagDto> getTags();
 
-	public TagService(TagRepository tagRepository) {
-		this.tagRepository = tagRepository;
-	}
+    TagDto getTagById(int tagId);
 
-	public List<Tag> getAllTags() {
-		return tagRepository.findAll();
-	}
+    TagDto createTag(TagDto tagDto);
 
-	public Tag getTagById(int tagId) {
-		return tagRepository.findById(tagId).orElseThrow();
-	}
+    TagDto updateTag(int tagId, TagDto tagDto);
 
-	public Tag createNewTag(Tag tag) {
-		return tagRepository.save(tag);
-	}
-
-	public Tag updateTagDetails(int tagId, Tag tag) {
-        if(tag.getId() != tagId) {
-            // TODO throw an error
-        }
-		return tagRepository.save(tag);
-	}
-
-	public Tag deleteTagById(int tagId) {
-        Tag tag = tagRepository.findById(tagId).orElseThrow();
-        tagRepository.deleteById(tagId);
-		return tag;
-	}
+    void deleteTagById(int tagId);
 
 }

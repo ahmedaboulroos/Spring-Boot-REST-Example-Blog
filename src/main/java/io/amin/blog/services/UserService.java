@@ -1,40 +1,29 @@
 package io.amin.blog.services;
 
-import io.amin.blog.models.User;
-import io.amin.blog.repositories.UserRepository;
-import org.springframework.stereotype.Service;
+import io.amin.blog.services.dto.CommentDto;
+import io.amin.blog.services.dto.RoleDto;
+import io.amin.blog.services.dto.TagDto;
+import io.amin.blog.services.dto.UserDto;
 
 import java.util.List;
 
-@Service
-public class UserService {
+public interface UserService {
 
-	private final UserRepository userRepository;
+    List<UserDto> getAllUsers();
 
-	public UserService(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
+    UserDto getUserById(int userId);
 
-	public List<User> getAllUsers() {
-		return userRepository.findAll();
-	}
+    UserDto createNewUser(UserDto userDto);
 
-	public User getUserById(int userId) {
-		return userRepository.findById(userId).orElseThrow();
-	}
+    UserDto updateUserDetails(int userId, UserDto userDto);
 
-	public User createNewUser(User user) {
-		return userRepository.save(user);
-	}
+    void deleteUserById(int userId);
 
-	public User updateUserDetails(int userId, User user) {
-		return userRepository.save(user);
-	}
+    List<RoleDto> getUserRoles(int userId);
 
-	public User deleteUserById(int userId) {
-		User user = userRepository.findById(userId).orElseThrow();
-		userRepository.deleteById(userId);
-		return user;
-	}
+    List<TagDto> getUserInterests(int userId);
 
+    void addUserInterest(int userId, TagDto tagDto);
+
+    List<CommentDto> getUserComments(int userId);
 }

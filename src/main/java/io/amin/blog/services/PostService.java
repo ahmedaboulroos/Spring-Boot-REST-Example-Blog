@@ -1,45 +1,24 @@
 package io.amin.blog.services;
 
-import io.amin.blog.models.Post;
-import io.amin.blog.repositories.PostRepository;
-import org.springframework.stereotype.Service;
+import io.amin.blog.services.dto.PostDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Service
-public class PostService {
+public interface PostService {
 
-    private final PostRepository postRepository;
+    PostDto getPostById(int postId);
 
-    public PostService(PostRepository postRepository) {
-        this.postRepository = postRepository;
-    }
+    void deletePostById(int postId);
 
-    public Post getBlogPostById(int blogPostId) {
-        return postRepository.findById(blogPostId).orElseThrow();
-    }
+    PostDto createPost(PostDto postDto);
 
-    public Post addNewBlogPost(Post post) {
-        return postRepository.save(post);
-    }
+    PostDto updatePost(int postId, PostDto postDto);
 
-    public Post updateBlogPostDetails(int blogPostId, Post post) {
-        return postRepository.save(post);
-    }
+    List<PostDto> getPosts();
 
-    public Post deleteBlogPostById(int blogPostId) {
-        Post post = postRepository.findById(blogPostId).orElseThrow();
-        postRepository.deleteById(blogPostId);
-        return post;
-    }
+    List<PostDto> getPostsByUserId(int userId);
 
-    public List<Post> getAllBlogPosts() {
-        return postRepository.findAll();
-    }
-
-    public List<Post> getAllBlogPostsBetweenTimestamps(LocalDateTime timestampOne, LocalDateTime timestampTwo) {
-        return postRepository.findByTimestampBetween(timestampOne, timestampTwo);
-    }
+    List<PostDto> getPostsBetweenTimestamps(LocalDateTime timestampOne, LocalDateTime timestampTwo);
 
 }

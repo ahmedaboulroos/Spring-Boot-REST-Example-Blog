@@ -1,9 +1,8 @@
 package io.amin.blog.controllers;
 
-import io.amin.blog.controllers.dto.PostDto;
-import io.amin.blog.models.Post;
-import io.amin.blog.models.Tag;
 import io.amin.blog.services.PostService;
+import io.amin.blog.services.dto.PostDto;
+import io.amin.blog.services.dto.TagDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,44 +18,44 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public List<Post> readAllPosts(@RequestParam(required = false) String tag) {
-        return postService.getAllBlogPosts();
+    public List<PostDto> getAllPosts(@RequestParam(required = false) String tag) {
+        return postService.getPosts();
     }
 
     @GetMapping("/posts/{postId}")
-    public Post readPostById(@PathVariable int postId) {
-        return postService.getBlogPostById(postId);
+    public PostDto getPostById(@PathVariable int postId) {
+        return postService.getPostById(postId);
     }
 
     @PostMapping("/posts")
-    public Post addNewPost(@RequestBody PostDto postDto) {
-        return null;
+    public PostDto createNewPost(@RequestBody PostDto postDto) {
+        return postService.createPost(postDto);
     }
 
     @PutMapping("/posts/{postId}")
-    public Post updateExistingPost(@PathVariable int postId, @RequestBody PostDto postDto) {
-        return null;
+    public PostDto updateExistingPost(@PathVariable int postId, @RequestBody PostDto postDto) {
+        return postService.updatePost(postId, postDto);
     }
 
     @DeleteMapping("/posts/{postId}")
-    public Post deleteExistingPost(@PathVariable int postId) {
-        return postService.deleteBlogPostById(postId);
+    public void deleteExistingPostById(@PathVariable int postId) {
+        postService.deletePostById(postId);
     }
 
 
     @GetMapping("/posts/{postId}/tags")
-    public Post readAllPostTags(@PathVariable int postId) {
-        return postService.getBlogPostById(postId);
+    public List<TagDto> getAllPostTags(@PathVariable int postId) {
+        return null;
     }
 
     @PostMapping("/posts/{postId}/tags")
-    public Post addNewTagToPost(@PathVariable int postId, @RequestBody Tag tag) {
-        return postService.getBlogPostById(postId);
+    public TagDto addTagToPost(@PathVariable int postId, @RequestBody TagDto tagDto) {
+        return null;
     }
 
     @DeleteMapping("/posts/{postId}/tags/{tagId}")
-    public Post removeTagFromPost(@PathVariable int postId, @PathVariable int tagId) {
-        return postService.getBlogPostById(postId);
+    public TagDto removeTagFromPost(@PathVariable int postId, @PathVariable int tagId) {
+        return null;
     }
 
 }

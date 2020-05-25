@@ -1,75 +1,74 @@
 package io.amin.blog.controllers;
 
-import java.util.List;
-
-import io.amin.blog.models.Post;
-import io.amin.blog.models.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import io.amin.blog.models.User;
+import io.amin.blog.services.PostService;
 import io.amin.blog.services.UserService;
+import io.amin.blog.services.dto.*;
+import io.amin.blog.services.impl.UserServiceImpl;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 public class UserController {
-    
-    private final UserService userService;
 
-    public UserController(UserService userService) {
+    private final UserService userService;
+    private final PostService postService;
+
+    public UserController(UserServiceImpl userService, PostService postService) {
         this.userService = userService;
+        this.postService = postService;
     }
 
     @GetMapping("/users")
-    public List<User> readAllUsers() {
+    public List<UserDto> readAllUsers() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/users/{userId}")
-    public User readUserById(@PathVariable int userId) {
+    public UserDto getUserById(@PathVariable int userId) {
         return userService.getUserById(userId);
     }
-    
+
     @PostMapping("/users")
-    public User createNewUser(@RequestBody User user) {
-        return userService.createNewUser(user);
+    public UserDto createNewUser(@RequestBody UserDto userDto) {
+        return userService.createNewUser(userDto);
     }
 
     @PutMapping("/users/{userId}")
-    public User updateExistingUser(@PathVariable int userId, @RequestBody User user) {
-        return userService.updateUserDetails(userId, user);
+    public UserDto updateExistingUser(@PathVariable int userId, @RequestBody UserDto userDto) {
+        return userService.updateUserDetails(userId, userDto);
     }
-    
+
     @DeleteMapping("/users/{userId}")
-    public User deleteExistingUser(@PathVariable int userId) {
-        return userService.deleteUserById(userId);
+    public void deleteExistingUserById(@PathVariable int userId) {
+        userService.deleteUserById(userId);
+    }
+
+
+    @GetMapping("/users/{userId}/roles")
+    public List<RoleDto> getAllUserRoles(@PathVariable int userId) {
+        return userService.getUserRoles(userId);
     }
 
     @GetMapping("/users/{userId}/posts")
-    public List<Post> readAllUserPosts(@PathVariable int userId) {
-        return null;
+    public List<PostDto> getAllUserPosts(@PathVariable int userId) {
+        return postService.getPostsByUserId(userId);
     }
 
-    @PostMapping("/users/{userId}/posts")
-    public Post createNewUserPost(@PathVariable int userId, @RequestBody User user) {
-        return null;
+    @GetMapping("/users/{userId}/comments")
+    public List<CommentDto> getAllUserComments(@PathVariable int userId) {
+        return userService.getUserComments(userId);
     }
 
     @GetMapping("/users/{userId}/interests")
-    public List<Tag> readAllUserInterests(@PathVariable int userId) {
-        return null;
+    public List<TagDto> getAllUserInterests(@PathVariable int userId) {
+        return userService.getUserInterests(userId);
     }
 
     @PostMapping("/users/{userId}/interests")
-    public Tag createNewUserInterest(@PathVariable int userId, @RequestBody Tag tag) {
-        return null;
+    public void addUserInterest(@PathVariable int userId, @RequestBody TagDto tagDto) {
+        userService.addUserInterest(userId, tagDto);
     }
 
 }
